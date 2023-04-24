@@ -27,8 +27,14 @@ export class NavbarComponent implements OnInit, OnChanges {
    *  */
   constructor(public _snackBar: MatSnackBar) {}
 
+  collapsed = true;
+
   @Input()
-  public itemsList!: string[];
+  public itemsList!: {
+    title: string;
+    action: string;
+    options: { title: string; action: string }[];
+  }[];
 
   @Output()
   itemClicked: EventEmitter<string> = new EventEmitter<string>();
@@ -54,8 +60,8 @@ export class NavbarComponent implements OnInit, OnChanges {
    *  */
   itemHasBeenClicked(item: any) {
     //alert(item);
-    this.openSnackBar(item, 'Ok');
-    this.itemClicked.emit(item);
+    this.openSnackBar(item.title, 'Ok');
+    this.itemClicked.emit(item.title);
   }
 
   /**
